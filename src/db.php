@@ -1,12 +1,16 @@
 <?php
-$host = getenv('DB_HOST'); // Dùng tên service trong docker-compose
-$username = getenv('DB_USER');
-$password = getenv('DB_PASS');
-$database = getenv('DB_NAME');
+$host = getenv("DB_HOST");
+$port = getenv("DB_PORT"); // Đừng quên port!
+$db   = getenv("DB_NAME");
+$user = getenv("DB_USER");
+$pass = getenv("DB_PASS");
 
-$conn = new mysqli($host, $username, $password, $database);
+// Kết nối PostgreSQL
+$conn = pg_connect("host=$host port=$port dbname=$db user=$user password=$pass");
 
-if ($conn->connect_error) {
-    die("Kết nối thất bại: " . $conn->connect_error);
+if (!$conn) {
+    die("❌ Kết nối tới PostgreSQL thất bại.");
+} else {
+    echo "✅ Kết nối PostgreSQL thành công!";
 }
 ?>
