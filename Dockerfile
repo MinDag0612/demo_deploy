@@ -1,10 +1,12 @@
 FROM php:8.1-apache
 
-# Cài mysqli
-RUN docker-php-ext-install mysqli
+# Cài extension PostgreSQL
+RUN apt-get update && \
+    apt-get install -y libpq-dev && \
+    docker-php-ext-install pgsql pdo_pgsql
 
-# Copy code vào container
+# Copy source vào container
 COPY src/ /var/www/html/
 
-# Bật mod_rewrite (nếu dùng sau này)
+# Bật mod_rewrite (tuỳ chọn)
 RUN a2enmod rewrite
