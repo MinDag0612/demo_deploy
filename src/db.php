@@ -1,8 +1,8 @@
 <?php
-$host = "db"; // Dùng tên service trong docker-compose
-$username = "root";
-$password = "root";
-$database = "demo_db";
+$host = getenv('DB_HOST'); // Dùng tên service trong docker-compose
+$username = getenv('DB_USER');
+$password = getenv('DB_PASS');
+$database = getenv('DB_NAME');
 
 $conn = new mysqli($host, $username, $password, $database);
 
